@@ -1,0 +1,2 @@
+﻿The services could be methods executed in async mode, so it makes the 
+consulting to any method or can be clients for web services
