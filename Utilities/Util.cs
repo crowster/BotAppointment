@@ -37,6 +37,24 @@ namespace AppicationBot.Ver._2.Utilities
             result = beforeDot[0];
             return result;
         }
+        public static string GetCalendarIdFromBotOption(string botOption)
+        {
+            string result = "";
+            Char delimiter = '.';
+            String[] beforeDot = botOption.Split(delimiter);
+            result = beforeDot[0];
+            return result;
+        }
+
+        public static string GetDateFromBotOption(string botOption)
+        {
+            string result = "";
+            Char delimiter = '.';
+            String[] beforeDot = botOption.Split(delimiter);
+            result = beforeDot[1];
+            result.Replace("-","");
+            return result;
+        }
 
         public static int GetUnitIdFromBotOption(string botOption)
         {

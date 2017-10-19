@@ -83,9 +83,9 @@ namespace AppicationBot.Ver._2.Services
             List<Calendar> listCalendars = new List<Calendar>();
             int serviceId = Convert.ToInt32(_serviceId);
             int appoinmentTypeId = 1;
-            DateTime dateFromString =
-            DateTime.Parse(startDate, System.Globalization.CultureInfo.InvariantCulture);
-            DateTime endDate = dateFromString.AddDays(-1);
+            // DateTime dateFromString =DateTime.Parse(startDate, System.Globalization.CultureInfo.InvariantCulture);
+            DateTime dateFromString =DateTime.Today;
+            DateTime endDate = dateFromString.AddDays(3);
             WebAppoinmentsClientLibrary.Calendars calendar = new WebAppoinmentsClientLibrary.Calendars();
             listCalendars = calendar.GetCalendars(serviceId, dateFromString, endDate, appoinmentTypeId, "XML");
             return listCalendars;

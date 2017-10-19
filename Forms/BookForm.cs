@@ -27,8 +27,11 @@ namespace AppicationBot.Ver._2.Forms
         //This property will keep the service of the office
         public string Service;
         //the prompt tool allow us create a customized message for send to the user in the form flow
-        [Prompt("Can you enter the date in the follow format please, MM/dd/yyyy  ? {||}")]
+        //i COMMENTED THIS LINE BEACUSE i WILL IPLEMENT THE OPTION FOR GET THE NEXT 3 DAYS
+        // [Prompt("Can you enter the date in the follow format please, MM/dd/yyyy  ? {||}")]
         public string StartDateAndTime;
+        //public string Days;
+
         //This is the hour of the selected slot
         public string Hour;
         //This property is for see a general hour 1,2,3,13,14,16 etc
@@ -98,6 +101,7 @@ namespace AppicationBot.Ver._2.Forms
         /// 
         public static IForm<BookForm> BuildForm()
         {
+            #region processOrder
             OnCompletionAsyncDelegate<BookForm> processOrder = async (context, state) =>
             {
                 //Get the actual user state of the customer
@@ -144,6 +148,7 @@ namespace AppicationBot.Ver._2.Forms
                     await context.PostAsync($"Failed with message: {ex.Message}");
                 }
             };
+            #endregion
             CultureInfo ci = new CultureInfo("en");
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
@@ -196,7 +201,58 @@ namespace AppicationBot.Ver._2.Forms
                                    }
                                    return Task.FromResult(true);
                                }))
-                              .Field("StartDateAndTime", validate:
+                              .Field(new FieldReflector<BookForm>(nameof(StartDateAndTime))
+                              .SetType(null)
+                              .SetDefine((state, field) =>
+                              {
+                                  string date;
+                                  string service;
+                                  List<Service> listService;
+                                  int unitId = 0;
+                                  List<OTempus.Library.Class.Calendar> listCalendars;
+                                  StringBuilder response = new StringBuilder();
+                                  List<CalendarGetSlotsResults> listGetAvailablesSlots = new List<CalendarGetSlotsResults>();
+                                  if (!String.IsNullOrEmpty(state.Service) && !String.IsNullOrEmpty(state.Office) )
+                                  {
+                                      unitId = Utilities.Util.GetUnitIdFromBotOption(state.Office);
+                                      try
+                                      {
+                                          listService = AppoinmentService.listServicesByName(state.Service, 1, "en", false, unitId);
+                                          int serviceID = listService[0].Id;
+                                          listCalendars = new List<OTempus.Library.Class.Calendar>();
+
+                                          if (GetServicesOtempues(unitId).Count > 0)
+                                          {
+                                              //listCalendars = GetCalendar(serviceID.ToString(), dateAndTime);
+                                              //i commented this line beacuse i will take today and Thre days more, for get the calendars, and then get the dates of this calendars
+                                              listCalendars = GetCalendar(serviceID.ToString(), DateTime.Today.ToString());
+
+                                              if (listCalendars.Count == 0)
+                                              {
+                                                  response.Append("Not exists calendars in this date, try it one more time , or write 'quit' for exit").ToString();
+                                                  //vResult.Feedback = string.Format(response.ToString());
+                                                  //vResult.IsValid = false;
+                                                  return Task.FromResult(false);
+                                              }
+                                              else
+                                              {
+                                                  foreach (var calendar in listCalendars)
+                                                  {
+                                                      string data =calendar.Id+".-"+calendar.CalendarDate.ToString();
+                                                      field
+                                                          .AddDescription(data, data)
+                                                          .AddTerms(data, data);
+                                                  }
+                                                  return Task.FromResult(true);
+                                              }//End else 
+                                          }//End if
+                                      }//End try
+                                      catch (Exception e) { }
+                                  }
+                                  return Task.FromResult(true);
+                              }))
+
+                              /*.Field("StartDateAndTime", validate:
                               async (state, responses) =>
                               {
                                   string date;
@@ -252,7 +308,7 @@ namespace AppicationBot.Ver._2.Forms
                                       }
                                   }
                                   return vResult;
-                               })
+                               })*/
                                .Field(new FieldReflector<BookForm>(nameof(CalendarId)).SetActive(InactiveField))
                                .Field(new FieldReflector<BookForm>(nameof(OrdinalSlot)).SetActive(InactiveField))
                                /*new source implementation 10/09/17 */
@@ -268,13 +324,19 @@ namespace AppicationBot.Ver._2.Forms
                                    if (!String.IsNullOrEmpty(state.StartDateAndTime) && !String.IsNullOrEmpty(state.Service) && !String.IsNullOrEmpty(state.Office))
                                    {
                                        int unitId = Utilities.Util.GetUnitIdFromBotOption(state.Office);
+                                       string calendarId = Utilities.Util.GetCalendarIdFromBotOption(state.StartDateAndTime);
+                                       //asign the calendar id
+                                       state.CalendarId = calendarId;
+                                       string dateSelected = Utilities.Util.GetDateFromBotOption(state.StartDateAndTime);
+
+
                                        try
                                        {
                                        listService = AppoinmentService.listServicesByName(state.Service, 1, "en", false, unitId);
                                        //It find almost the time one record, but in the case that found two, 
                                        int serviceID = listService[0].Id;
                                            listCalendars = new List<OTempus.Library.Class.Calendar>();
-                                           date = state.StartDateAndTime; service = state.Service;
+                                           date = dateSelected; service = state.Service;
                                            if (GetServicesOtempues(unitId).Count > 0)
                                            {
                                            //Service two and date...
@@ -289,11 +351,11 @@ namespace AppicationBot.Ver._2.Forms
                                        {
                                            throw new Exception("Here are the error: " + ex.Message);
                                        }
-                                       date = state.StartDateAndTime.ToString();
+                                       date = dateSelected;
                                        service = state.Service.ToString();
                                        if (listCalendars.Count > 0)
                                        {
-                                           listGetAvailablesSlots = AppoinmentService.GetAvailablesSlots(listCalendars[0].Id);
+                                           listGetAvailablesSlots = AppoinmentService.GetAvailablesSlots(Convert.ToInt32(state.CalendarId));
                                            int cont = 0;
                                            foreach (OTempus.Library.Class.CalendarGetSlotsResults calendarSlots in listGetAvailablesSlots)
                                            {
@@ -302,11 +364,8 @@ namespace AppicationBot.Ver._2.Forms
                                                    //I commented this line because I need to cut the message
                                                    // string data =calendarSlots.OrdinalNumber+".-"+ calendarSlots.DisplayStartTime.ToString() +"-"+calendarSlots.DisplayEndTime+"=>"+calendarSlots.Status;
                                                    string data = calendarSlots.OrdinalNumber + ".-" + calendarSlots.DisplayStartTime.ToString() + "-" + calendarSlots.DisplayEndTime;
-                                                       string hour = Utilities.Util.GetHourFromStartDate(calendarSlots.DisplayStartTime.ToString()); ;
-
-                                                       //asign the calendar id
-                                                       state.CalendarId = calendarSlots.CalendarId.ToString();
-                                                       value
+                                                   string hour = Utilities.Util.GetHourFromStartDate(calendarSlots.DisplayStartTime.ToString()); ;
+                                                   value
                                                               // .AddDescription(data, data).AddTerms(data, data);
                                                                .AddDescription(hour, hour).AddTerms(hour, hour);
 
@@ -374,7 +433,7 @@ namespace AppicationBot.Ver._2.Forms
                                                    // string data =calendarSlots.OrdinalNumber+".-"+ calendarSlots.DisplayStartTime.ToString() +"-"+calendarSlots.DisplayEndTime+"=>"+calendarSlots.Status;
                                                    string data = calendarSlots.OrdinalNumber + ".-" + calendarSlots.DisplayStartTime.ToString() + "-" + calendarSlots.DisplayEndTime;
                                                    //assign the calendar id
-                                                   state.CalendarId = calendarSlots.CalendarId.ToString();
+                                                   //state.CalendarId = calendarSlots.CalendarId.ToString();
                                                        value
                                                                .AddDescription(data, data)
                                                                .AddTerms(data, data);
