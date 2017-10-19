@@ -138,6 +138,8 @@ namespace AppicationBot.Ver._2
                     {
                         array = await GetAttachmentsAsync(activityRes);
                         listArrayBytes = array.ToList();
+                        name = activityRes.Attachments[0].Name;
+
                         // byte[] arr = await LoadAttachmentAsBytes(activity.Attachments[0], activity.Attachments[0].ContentUrl);
 
                         //Get the actual attachment inside the bot 
@@ -238,9 +240,11 @@ namespace AppicationBot.Ver._2
                         customerState.Sex = Convert.ToInt32(customer.Sex);
                         customerState.PersonaId = customer.PersonalId;
                         userData.SetProperty<ACFCustomer>("customerState", customerState);
-
+                        if (!string.IsNullOrEmpty(customer.FirstName)) { 
                         reply.Text = $"Welcome  " + customer.FirstName + " "+customer.LastName+"...";
-                        await client.Conversations.ReplyToActivityAsync(reply);
+                            await client.Conversations.ReplyToActivityAsync(reply);
+                        }
+
                     }
                     else
                     {

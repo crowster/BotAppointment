@@ -3,6 +3,7 @@ C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\Appic
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Bot Application1.pdb
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Autofac.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Chronic.dll
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Face RecognitionLibrary.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.Autofac.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Connector.dll
@@ -16,7 +17,6 @@ C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\Appic
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\System.Web.Http.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\System.Web.Http.WebHost.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\WebAppoinmentsClientLibrary.dll
-C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\WebAppoinmentsClientLibrary.pdb
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Autofac.xml
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.xml
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.Autofac.xml
@@ -41,7 +41,5 @@ C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\Appic
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\ru\Microsoft.Bot.Builder.resources.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
-C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\AppicationBot.Ver.2.csprojResolveAssemblyReference.cache
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\Bot Application1.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\Bot Application1.pdb
-C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Face RecognitionLibrary.dll
