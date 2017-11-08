@@ -17,6 +17,7 @@ namespace AppicationBot.Ver._2.Forms
         Unknown = 0, Male = 1, Female = 2
     }
     [Serializable]
+    [Template(TemplateUsage.Confirmation, "Is this your selection? {||}")]
     public class SaveCustomerForm
     {
         #region Methods
@@ -81,8 +82,8 @@ namespace AppicationBot.Ver._2.Forms
                     customer.Email = state.Email;
                     customer.PhoneNumber = state.PhoneNumber;
                     customer.Sex = GetIntSex(state.Sex.ToString());
-                    int customerId = AppoinmentService.SaveCustomer(customer.PhoneNumber, customer.Email, customer.FirstName,
-                    customer.LastName, customer.Sex, customer.PhoneNumber, customer.CustomerId);
+                    int customerId = AppoinmentService.SaveCustomer(customer.PhoneNumber,customer.FirstName,
+                    customer.LastName, customer.PhoneNumber, customer.CustomerId);
                     state.customerId = customerId.ToString();
                     if (customerId > 0) {
                         FRService frService = new FRService();

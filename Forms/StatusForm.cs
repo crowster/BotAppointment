@@ -17,7 +17,7 @@ namespace AppicationBot.Ver._2.Forms
 
         public int calendarId;
 
-        [Prompt("Can you enter the {&}, please? {||} ")]
+        [Prompt("Can you enter the appointment Id, please? {||} ")]
 
         public int appoinmentId;
         public static IDialogContext context { get; set; }
@@ -56,15 +56,18 @@ namespace AppicationBot.Ver._2.Forms
 
                 //If the ordinal number is different of 0, means that we find it aone register
                 if (slotToShowInformation.OrdinalNumber != 0)
-                await context.PostAsync($" The customer Id is: " + mycustomerid + "The actual information is \n* Status:  " + slotToShowInformation.Status.ToString()
-                    + " \n* Customer name: "+ slotToShowInformation.CustomerFirstName + "\n* start time: " 
-                    + slotToShowInformation.DisplayStartTime.ToString() +"------ Or= "+
-                    slotToShowInformation.StartTime.ToString() +" Past midnight"+ "\n* end time:  "
-                    + displayEndTime + " \n* duration: " + slotToShowInformation.Duration.ToString()
-                    );
+                {
+                    await context.PostAsync($" The customer Id is: " + mycustomerid + "The actual information is \n* Status:  " + slotToShowInformation.Status.ToString()
+                        + " \n* Customer name: " + slotToShowInformation.CustomerFirstName + "\n* start time: "
+                        + slotToShowInformation.DisplayStartTime.ToString() + "------ Or= " +
+                        slotToShowInformation.StartTime.ToString() + " Past midnight" + "\n* end time:  "
+                        + displayEndTime + " \n* duration: " + slotToShowInformation.Duration.ToString()
+                        );
+                }
                 // in other hand we dont'find a register, so ,we will send the appropiate mmesage
-                else {
-                    await context.PostAsync($"The customer Id is: "+ mycustomerid +  "I don't have a register to match with calendarid: \n* "+ state.calendarId+ "appoinment Id: \n*" + state.appoinmentId);
+                else
+                {
+                    await context.PostAsync($"The customer Id is: " + mycustomerid + "I don't have a register to match with calendarid: \n* " + state.calendarId + "appoinment Id: \n*" + state.appoinmentId);
                 }
             };
             CultureInfo ci = new CultureInfo("en");
@@ -78,7 +81,7 @@ namespace AppicationBot.Ver._2.Forms
             noTerms.Add("No");
             form.Configuration.Yes = yesTerms.ToArray();
 
-            return form.Message("Fill the information for search the appoinment, please")
+            return form.Message("Fill the information for search the appointment, please")
                        .Field(nameof(calendarId))
                        .Field(nameof(appoinmentId))
                       .Confirm("Are you selected the calendar id {calendarId}, and slot {appoinmentId}: ? (yes/no)")

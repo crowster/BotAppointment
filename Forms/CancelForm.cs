@@ -153,7 +153,7 @@ namespace AppicationBot.Ver._2.Forms
             noTerms.Add("No");
             form.Configuration.Yes = yesTerms.ToArray();
            
-            return form.Message("Fill the information for cancel the appoinment, please")
+            return form.Message("Fill the information for cancel the appointment, please")
                       .Field(nameof(appoinmentId))
                       .Confirm("Are you selected:  "+
                       "\n* appoinmentId: {appoinmentId}: ? \n"+

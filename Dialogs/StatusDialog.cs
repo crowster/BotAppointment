@@ -13,7 +13,7 @@ namespace AppicationBot.Ver._2.Dialogs
         public async Task StartAsync(IDialogContext context)
         {
             await context.PostAsync($"status dialog");
-            context.Wait(base.MessageReceivedAsync);
+           // context.Wait(base.MessageReceived);
 
 
 

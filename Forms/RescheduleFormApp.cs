@@ -169,7 +169,7 @@ namespace AppicationBot.Ver._2.Forms
                        + "\n* New date and time : {newDate} " +
                        "? \n" +
                       "(yes/no)")*/
-                      .Message("The process for reschdule the appoinment has been started!")
+                      .Message("The process for reschedule the appoinment has been started!")
                       .OnCompletion(processOrder)
                       .Build();
         }

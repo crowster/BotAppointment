@@ -95,7 +95,7 @@ namespace AppicationBot.Ver._2.Forms
 
                     string test = caseForSaveResult.OTUnitName;
 
-                    if (_appoinment.ProcessId > 0)
+                    if (_appoinment!=null)
                     {
                         await context.PostAsync($"The appointment have the next information " +
                             " \n* Process Id: " + _appoinment.ProcessId +

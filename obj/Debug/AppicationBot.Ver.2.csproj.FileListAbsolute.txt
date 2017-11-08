@@ -4,18 +4,22 @@ C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\Appic
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Autofac.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Chronic.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Face RecognitionLibrary.dll
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.Autofac.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Connector.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Rest.ClientRuntime.dll
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.WindowsAzure.Configuration.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Newtonsoft.Json.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\OTempus.Library.dll
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Swashbuckle.Core.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\System.Net.Http.Formatting.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\System.Web.Http.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\System.Web.Http.WebHost.dll
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\WebActivatorEx.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\WebAppoinmentsClientLibrary.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Autofac.xml
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\Microsoft.Bot.Builder.xml
@@ -41,6 +45,7 @@ C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\Appic
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\pt-BR\Microsoft.Bot.Builder.resources.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\ru\Microsoft.Bot.Builder.resources.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\AppicationBot.Ver.2.csprojResolveAssemblyReference.cache
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\Bot Application1.dll
 C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\Bot Application1.pdb
-C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\obj\Debug\AppicationBot.Ver.2.csprojResolveAssemblyReference.cache
+C:\Users\Maggiie\Documents\Visual Studio 2015\Projects\AppicationBot.Ver.2\AppicationBot.Ver.2\bin\WebAppoinmentsClientLibrary.pdb

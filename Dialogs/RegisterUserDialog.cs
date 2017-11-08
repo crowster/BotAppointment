@@ -29,44 +29,42 @@ namespace AppicationBot.Ver._2.Dialogs
 
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync($"Your photo is not registered yet, Starting the process for create an user with this photo ");
-
+            await context.PostAsync($"Sorry, I don’t recognize you and I need to know some details about you");
+            // context.Call(saveFormDialog, ResumeAfterSaveCustomerDialog);
             context.Wait(this.MessageReceivedAsync);
-        
+
         }
 
 
         public virtual async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
-           
-            PromptDialog.Choice(
-              context,
-              this.AfterChoiceSelected,
-              new[] {
-                /*  SaveCustomerOption, AuthenticateOption },*/
-                  Register },
+            /*
+             PromptDialog.Choice(
+               context,
+               this.AfterChoiceSelected,
+               new[] {
+                 /*  SaveCustomerOption, AuthenticateOption },*/
+            /*  Register },
               "What do you want to do?",
               "I am sorry but I didn't understand that. I need you to select one of the options below...",
-              attempts: 2);
-        }
+              attempts: 2);*/
+            SaveCustomerFormApp.imageName = imageName;
+            SaveCustomerFormApp.savedImageId = savedImageId;
+            SaveCustomerFormApp.context = context;
+            var saveFormDialog = FormDialog.FromForm(SaveCustomerFormApp.BuildForm, FormOptions.PromptInStart);
+            context.Call(saveFormDialog, ResumeAfterSaveCustomerDialog);
 
+        }
         public virtual async Task MessageReceivedAsyncRedirectToRootDialog(IDialogContext context, IAwaitable<IMessageActivity> result)
         {
             var message = await result;
-            
-                context.Call(new RootDialog(), ResumeAfterRootDialog);
+            context.Call(new RootDialog(), ResumeAfterRootDialog);
         }
 
         private async Task ResumeAfterRootDialog(IDialogContext context, IAwaitable<object> result)
         {
             context.Done(string.Empty);
-
         }
-
-    
-
-   
-
         private async Task AfterChoiceSelected(IDialogContext context, IAwaitable<string> result)
         {
             var selection = await result;
@@ -74,10 +72,10 @@ namespace AppicationBot.Ver._2.Dialogs
             switch (selection)
             {
                 case Register:
-                    SaveCustomerForm.imageName = imageName;
-                    SaveCustomerForm.savedImageId = savedImageId;
-                    SaveCustomerForm.context = context;
-                    var saveFormDialog = FormDialog.FromForm(SaveCustomerForm.BuildForm, FormOptions.PromptInStart);
+                    SaveCustomerFormApp.imageName = imageName;
+                    SaveCustomerFormApp.savedImageId = savedImageId;
+                    SaveCustomerFormApp.context = context;
+                    var saveFormDialog = FormDialog.FromForm(SaveCustomerFormApp.BuildForm, FormOptions.PromptInStart);
                     context.Call(saveFormDialog, ResumeAfterSaveCustomerDialog);
                     break;
                 case LogOut:
@@ -86,20 +84,15 @@ namespace AppicationBot.Ver._2.Dialogs
                     break;
             }
         }
-
-
-
-
-        private async Task ResumeAfterSaveCustomerDialog(IDialogContext context, IAwaitable<SaveCustomerForm> result)
+        private async Task ResumeAfterSaveCustomerDialog(IDialogContext context, IAwaitable<SaveCustomerFormApp> result)
         {
-            SaveCustomerForm customer = await result;
-            await context.PostAsync($"Welcome..." +customer.FirstName+" "+customer.LastName+  "!... ");
-           
-                context.Call(new RootDialog(), ResumeAfterRootDialog);
-
-            // context.Wait(this.MessageReceivedAsyncRedirectToRootDialog);
-
-            //context.Call(root, Microsoft.Bot.Builder.Dialogs.ResumeAfter);
+            SaveCustomerFormApp customer = await result;
+            RootDialog rd = new RootDialog();
+            await context.PostAsync($"Welcome " +customer.name +" "+customer.LastName);
+            // context.Call(rd.MessageReceivedAsyncFromUserDialog, ResumeAfterRootDialog);
+            bool creatingUser = true;
+            context.UserData.SetValue<bool>("creatingUser", creatingUser);
+            context.Call(new RootDialog(), ResumeAfterRootDialog);
         }
     }
 }

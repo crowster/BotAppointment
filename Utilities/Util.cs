@@ -24,8 +24,6 @@ namespace AppicationBot.Ver._2.Utilities
             result.Name = beforeDot[0]; //Name
             result.LastName = beforeDot[1]; //Last name
             result.PhoneNumber = beforeDot[2]; //Phone number
-
-
             return result;
         }
 
@@ -35,6 +33,19 @@ namespace AppicationBot.Ver._2.Utilities
             Char delimiter = '.';
             String[] beforeDot = botOption.Split(delimiter);
             result = beforeDot[0];
+            return result;
+        }
+
+        public static string GetDateWithCorrectPositionOfTheMonth(string botOption)
+        {
+            string result = "";
+            Char delimiter = '/';
+            String[] beforeDot = botOption.Split(delimiter);
+            string day = beforeDot[0];
+            string month = beforeDot[1];
+            string year = beforeDot[2];
+
+            result = month + "/" + day + "/" + year;
             return result;
         }
         public static string GetCalendarIdFromBotOption(string botOption)
@@ -52,10 +63,42 @@ namespace AppicationBot.Ver._2.Utilities
             Char delimiter = '.';
             String[] beforeDot = botOption.Split(delimiter);
             result = beforeDot[1];
-            result.Replace("-","");
+            result.Replace("-", "");
+            return result;
+        }
+        /// <summary>
+        /// This method get the date with time, and substring only the part of the date
+        /// </summary>
+        /// <param name="botOption"></param>
+        /// <returns></returns>
+        public static string GetDateWithOutTime(string botOption)
+        {
+            string result = "";
+            Char delimiter = ' ';
+            String[] beforeDot = botOption.Split(delimiter);
+            result = beforeDot[0];
             return result;
         }
 
+        public static string GetAMPM(int generalHour)
+        {
+            //It doesn't contemply the 12 am
+            string result = string.Empty;
+            if (generalHour >= 12)
+            {
+                result = " PM";
+            }
+            else
+            {
+                result = " AM";
+            }
+            return result;
+        }
+        /// <summary>
+        /// This method substring the unit id from the option
+        /// </summary>
+        /// <param name="botOption"></param>
+        /// <returns></returns>
         public static int GetUnitIdFromBotOption(string botOption)
         {
             int result = 0;
@@ -209,6 +252,50 @@ namespace AppicationBot.Ver._2.Utilities
             }
             return email;
 
+        }
+
+        /// <summary>
+        /// Get the int value of the period day
+        /// </summary>
+        /// <param name="periodDay"></param>
+        /// <returns></returns>
+        public static int GetIntPeriodDay(string periodDay)
+        {
+            int result = 0;
+            try
+            {
+                switch (periodDay)
+                {
+                    case "All":{result = 0;break;}
+                    case "Morning":{result = 1;break;}
+                    case "Noon": { result = 2; break; }
+                    case "Afternoon": { result = 3; break; }
+                    case "Evening": { result = 4; break; }
+                    case "Night": { result = 5; break; }
+                    default:
+                        result = 0;
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return result;
+        }
+
+        public static string GetRandomImageName()
+        {
+            StringBuilder objectId = new StringBuilder();
+            Random rand = new Random(DateTime.Now.Millisecond);
+            int RandomNumber = rand.Next(1, 9);
+            int RandomNumber2 = rand.Next(11, 49);
+            //Here Im concatenating the idObject
+            objectId.Append("Default");
+            objectId.Append(RandomNumber);
+            objectId.Append(RandomNumber2);
+            return objectId.ToString();
         }
     }
 }

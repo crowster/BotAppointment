@@ -55,6 +55,7 @@ namespace AppicationBot.Ver._2.Forms
                 try
                 {
                     if (!context.UserData.TryGetValue<FaceRecognitionModel>("FaceRecognitionModel", out faceRecognitionState)) { faceRecognitionState = new FaceRecognitionModel(); }
+                   
                     FRService frService = new FRService();
                     int caseId=await frService.enqueueCustomer(faceRecognitionState.ObjectId, faceRecognitionState.PhotoId, faceRecognitionState.Name, faceRecognitionState.FileName);
 
@@ -73,13 +74,7 @@ namespace AppicationBot.Ver._2.Forms
                     if (caseId > 0)
                     {
                         Case _case = AppoinmentService.GetCaseById(customerState.CustomerId);
-                        await context.PostAsync($"Hey!... "+ customerState.FirstName+ " "+customerState.LastName+" , your case has been enqueue satisfactory with the ticket " +
-                            //" \n* Process Id: " + _case.ProcessId  +
-                            //" \n* Q-Code: " + _case.QCode  +
-                            //" \n* Q-Number: " + _case.QNumber +
-                            //" \n* Status: " + _case.Status
-                            " \n* " + _case.QCode+_case.QNumber
-                            );
+                        await context.PostAsync($"Your ticket was created, your number is: "+_case.QCode + _case.QNumber);
                     }
                     else {
                         throw new Exception("Error: The case Id = 0");
@@ -94,10 +89,10 @@ namespace AppicationBot.Ver._2.Forms
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
             FormBuilder<EnqueueForm> form = new FormBuilder<EnqueueForm>();
-            return form.Message("Wait a moment please")
+            return form//Message("Wait a moment please")
                           .Field(new FieldReflector<EnqueueForm>(nameof(UserId)).SetActive(InactiveField))
                           .AddRemainingFields()
-                          .Message("The process for enqueue the case has been started!")
+                          //.Message("The process for enqueue the case has been started!")
                           .OnCompletion(processOrder)
                           .Build();
         }

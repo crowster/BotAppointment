@@ -70,24 +70,27 @@ namespace AppicationBot.Ver._2.Services
         #endregion
 
         #region Calendars
-
-
-        /// <summary>
-        /// Get a list of calendars by service Id and date
-        /// </summary>
-        /// <param name="_serviceId"></param>
-        /// <param name="startDate"></param>
-        /// <returns></returns>
-        public static List<Calendar> GetCalendars(string _serviceId, string startDate)
+        public static List<Calendar> GetCalendars(string _serviceId, DateTime startDate)
         {
             List<Calendar> listCalendars = new List<Calendar>();
             int serviceId = Convert.ToInt32(_serviceId);
             int appoinmentTypeId = 1;
             // DateTime dateFromString =DateTime.Parse(startDate, System.Globalization.CultureInfo.InvariantCulture);
-            DateTime dateFromString =DateTime.Today;
-            DateTime endDate = dateFromString.AddDays(3);
+            // DateTime dateFromString = DateTime.Today.AddDays(1);
+             DateTime dateFromString = startDate.AddDays(1);
+            DateTime endDate = dateFromString.AddDays(4);
             WebAppoinmentsClientLibrary.Calendars calendar = new WebAppoinmentsClientLibrary.Calendars();
             listCalendars = calendar.GetCalendars(serviceId, dateFromString, endDate, appoinmentTypeId, "XML");
+            return listCalendars;
+        }
+
+        public static List<CalendarSlot> GetSlotsByPeriod(int calendarId,string dayPeriod,string userId)
+        {
+            List<CalendarSlot> listCalendars = new List<CalendarSlot>();
+            bool appoinmentsOnly = false;
+            string typeSerializer = "XML";
+            WebAppoinmentsClientLibrary.Calendars calendars = new WebAppoinmentsClientLibrary.Calendars();
+            listCalendars = calendars.GetSlotsByPeriod(calendarId, dayPeriod, userId);
             return listCalendars;
         }
         /// <summary>
@@ -272,7 +275,7 @@ namespace AppicationBot.Ver._2.Services
             bool preventAutoQueue = false;
             string languageCode = "en";
             bool isWalkIn = false;
-            bool forceSimultaneousAppoiment = false;
+            bool forceSimultaneousAppoiment = true;
             bool forceWastedDuration = false;
             bool autoFreeUp = false;
             int treatmentPlanId = 0;
@@ -527,7 +530,6 @@ namespace AppicationBot.Ver._2.Services
         //int customerLevelId, 
         //string customerLevelName,
         //string customProperties, 
-        string email,
         string firstName,
         //bool isActive,
         //bool isCustomerGroup, 
@@ -537,7 +539,6 @@ namespace AppicationBot.Ver._2.Services
         //string name,
         //string notes, 
         //int pictureAttachmentId,
-        int sex,
         string telNumber1,
         //string telNumber2,
         //int userId,
@@ -559,11 +560,12 @@ namespace AppicationBot.Ver._2.Services
             string name = firstName;
             string notes = "";
             int pictureAttachmentId = 0;
-            sex = 1;
             string telNumber2 = "";
             int userId = 0;
             bool isSignUp = true;
             string typeSerializer = "XML";
+            string email = "";
+            int  sex = 0;
             try
             {
                 WebAppoinmentsClientLibrary.Customers customerLibrary = new WebAppoinmentsClientLibrary.Customers();
@@ -572,7 +574,7 @@ namespace AppicationBot.Ver._2.Services
                 customerIdTypeName,
                 customerLevelId, customerLevelName,
                 customProperties,
-                Utilities.Util.GetEmail(email), firstName,
+                email, firstName,
                 isActive, isCustomerGroup,
                 isMemberOfGroups,
                 languageCode, lastName,

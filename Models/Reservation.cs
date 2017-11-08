@@ -7,10 +7,7 @@ using System.Web;
 
 namespace AppicationBot.Ver._2.Models
 {
-    public enum Sexs
-    {
-        Unknown = 0, Male = 1, Female = 2
-    }
+  
     [Serializable]
     public class Reservation
     {

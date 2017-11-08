@@ -40,7 +40,7 @@ namespace AppicationBot.Ver._2.Forms
             return AppoinmentService.GetListServices(0);
         }
 
-        static List<OTempus.Library.Class.Calendar> GetCalendar(string serviceId, string date)
+        static List<OTempus.Library.Class.Calendar> GetCalendar(string serviceId, DateTime date)
         {
             return AppoinmentService.GetCalendars(serviceId, date);
         }
@@ -128,7 +128,7 @@ namespace AppicationBot.Ver._2.Forms
                                  List<OTempus.Library.Class.Calendar> listCalendars = new List<OTempus.Library.Class.Calendar>();
                                  if (GetServicesOtempues().Count > 0) {
                                      //Service two and date...
-                                      listCalendars = GetCalendar("2", "9/21/2017");
+                                      listCalendars = GetCalendar("2", DateTime.Today);
                                  }
                                  List<ACFAppointment> listAppoinments = await Services.AppoinmentService.GetAppoinments();
                                  List<CalendarGetSlotsResults> listGetAvailablesSlots = new List<CalendarGetSlotsResults>();
@@ -181,7 +181,7 @@ namespace AppicationBot.Ver._2.Forms
                                    if (GetServicesOtempues().Count > 0)
                                    {
                                        // foreach (var prod in GetCalendar("2", "9/19/2017"))
-                                       foreach (var prod in GetCalendar(service, date))
+                                       foreach (var prod in GetCalendar(service, DateTime.Today))
                                        field
                                                .AddDescription(prod.CalendarDate.ToString(), prod.CalendarDate.ToString())
                                                .AddTerms(prod.CalendarDate.ToString(), prod.CalendarDate.ToString());

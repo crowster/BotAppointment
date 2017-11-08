@@ -53,6 +53,10 @@
     <Reference Include="Face RecognitionLibrary">
       <HintPath>Dlls\Face RecognitionLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.AppService.ApiApps.Service, Version=0.9.16.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.AppService.ApiApps.Service.0.9.16\lib\net45\Microsoft.Azure.AppService.ApiApps.Service.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Bot.Builder, Version=3.11.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bot.Builder.3.11.0\lib\net46\Microsoft.Bot.Builder.dll</HintPath>
       <Private>True</Private>
@@ -74,6 +78,10 @@
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.2\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +93,10 @@
     <Reference Include="OTempus.Library, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dlls\OTempus.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -121,6 +133,10 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebAppoinmentsClientLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dlls\WebAppoinmentsClientLibrary.dll</HintPath>
@@ -137,6 +153,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MyCustomType.cs" />
     <Compile Include="ConversationStarter.cs" />
@@ -150,13 +167,22 @@
     <Compile Include="Forms\AppoinmentForm.cs" />
     <Compile Include="Forms\AuthenticationForm.cs" />
     <Compile Include="Forms\BookForm.cs" />
+    <Compile Include="Forms\BookFormApp.cs" />
     <Compile Include="Forms\CancelForm.cs" />
+    <Compile Include="Forms\CancelFormApp.cs" />
+    <Compile Include="Forms\CancelFormAppReservation.cs" />
     <Compile Include="Forms\EnqueueForm.cs" />
+    <Compile Include="Forms\RescheduledFormAppReservation.cs" />
     <Compile Include="Forms\RescheduleForm.cs" />
     <Compile Include="Forms\RescheduleFormApp.cs" />
+    <Compile Include="Forms\RescheduleFormAppThree.cs" />
+    <Compile Include="Forms\RescheduleFormAppTwo.cs" />
     <Compile Include="Forms\SaveCustomerForm.cs" />
+    <Compile Include="Forms\SaveCustomerFormApp.cs" />
     <Compile Include="Forms\StatusForm.cs" />
     <Compile Include="Forms\StatusFormApp.cs" />
+    <Compile Include="Forms\StatusFormAppReservation.cs" />
+    <Compile Include="Forms\StatusFormAppTwo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,13 +191,22 @@
     <Compile Include="Models\FaceRecognitionModel.cs" />
     <Compile Include="Models\ObjectIdModel.cs" />
     <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\ReservationCancel.cs" />
+    <Compile Include="Models\ReservationReschedule.cs" />
+    <Compile Include="Models\ReservationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppoinmentService.cs" />
     <Compile Include="Services\FRService.cs" />
     <Compile Include="Utilities\Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <Content Include="apiapp.json" />
+    <None Include="Properties\PublishProfiles\BotAppointment - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\QFlowBot - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

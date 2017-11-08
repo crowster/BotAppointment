@@ -29,6 +29,7 @@ namespace AppicationBot.Ver._2
         private static string serviceUrl;
         bool signIn;
 
+
         /*public async Task<Message> Post([FromBody]Message message)
         {
             Task.Delay(2000).ContinueWith(async (t) =>
@@ -52,6 +53,8 @@ namespace AppicationBot.Ver._2
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
+           
+
             ObjectResultRecognition result = new ObjectResultRecognition();
             string _BaseUrl = "http://migueliis.hosted.acftechnologies.com/RestServiceFRBotAppointment";
 
@@ -80,10 +83,7 @@ namespace AppicationBot.Ver._2
                  var reply = activity.CreateReply();
                  reply.Text = $"Your session has been restarted...";
                  await client.Conversations.ReplyToActivityAsync(reply);
-
              });*/
-
-
             if (activity.Type == ActivityTypes.Message)
             {
                 var message = " ";
@@ -91,6 +91,9 @@ namespace AppicationBot.Ver._2
                 var reply = activity.CreateReply();
                 try
                 {
+                    bool creatingUSer = false;
+                    userData.SetProperty<bool>("creatingUser", false);
+
                     message = activity.Text;
                     if (message.ToLower().Contains("exit"))
                     {
@@ -101,11 +104,23 @@ namespace AppicationBot.Ver._2
                         userData.SetProperty<FaceRecognitionModel>("FaceRecognitionModel", new FaceRecognitionModel());
                         userData.SetProperty<MyCustomType>("UserData", new MyCustomType());
                         objectId = "";
-                        reply.Text = $"Your session has been restarted...";
+                        reply.Text = $"Your session has been restarted, \n please type 'Hi' for continue...";
+
                         await client.Conversations.ReplyToActivityAsync(reply);
                         activity.GetStateClient().BotState.DeleteStateForUser(activity.ChannelId, activity.From.Id);
                     }
-                    if (message.ToLower().Contains("new user"))
+
+                    if (message.ToLower().Contains("clean")){
+                        int cont = 0;
+                        for (int i = 0; i < 50; i++) {
+                            reply.Text = reply.Text+" \n | ";
+                            
+                        }
+                        await client.Conversations.ReplyToActivityAsync(reply);
+
+
+                    }
+                        if (message.ToLower().Contains("new user"))
                     {
 
                     }
@@ -119,7 +134,7 @@ namespace AppicationBot.Ver._2
                     activityRes = activity;
                     //activity.GetStateClient().BotState.DeleteStateForUser(activity.ChannelId, activity.From.Id);
 
-                    reply.Text = $"Please wait a moment... ";
+                     reply.Text = $"One moment please... ";
                     await client.Conversations.ReplyToActivityAsync(reply);
                     //TEst when atachments a new picture, reset the custom properties
                     //Reset he custom properties
@@ -198,10 +213,16 @@ namespace AppicationBot.Ver._2
                         reply.Text = $"Error  " + ex.Message.ToString() + "...";
                         await client.Conversations.ReplyToActivityAsync(reply);
                     }
+                    //If the name is null or empty I asign a defaultname
+                    if (string.IsNullOrEmpty(name))
+                    {
+                        name = Utilities.Util.GetRandomImageName();
+                    }
 
                     objectId = await frService.validateFaceRecognition(idImageSaved);
                     if (!objectId.Contains("not found"))
                     {
+                       
                         //Divide the object Id in: name, last name and phone number
                         ObjectIdModel objectIdModel = Utilities.Util.DescomposeObjectId(objectId);
                         userData.SetProperty<bool>("SignIn", true);
@@ -211,7 +232,10 @@ namespace AppicationBot.Ver._2
                         faceRecognitionModel.PhotoId = idImageSaved.ToString();
                         faceRecognitionModel.Name = name;
                         faceRecognitionModel.FileName = name;
+                        
                         userData.SetProperty<FaceRecognitionModel>("FaceRecognitionModel", faceRecognitionModel);
+                        
+
 
                         //Get the personal id in this case is the phone number
                         string personalId = objectIdModel.PhoneNumber;
@@ -237,11 +261,11 @@ namespace AppicationBot.Ver._2
                         customerState.CustomerId = customer.Id;
                         customerState.FirstName = customer.FirstName;
                         customerState.PhoneNumber = customer.TelNumber1;
-                        customerState.Sex = Convert.ToInt32(customer.Sex);
+                       // customerState.Sex = Convert.ToInt32(customer.Sex);
                         customerState.PersonaId = customer.PersonalId;
                         userData.SetProperty<ACFCustomer>("customerState", customerState);
-                        if (!string.IsNullOrEmpty(customer.FirstName)) { 
-                        reply.Text = $"Welcome  " + customer.FirstName + " "+customer.LastName+"...";
+                        if (!string.IsNullOrEmpty(customer.FirstName)) {
+                            reply.Text = $"Welcome  " + customer.FirstName + " " + customer.LastName;
                             await client.Conversations.ReplyToActivityAsync(reply);
                         }
 
@@ -291,7 +315,7 @@ namespace AppicationBot.Ver._2
                     }
                     else if (!session && String.IsNullOrEmpty(objectId) && !objectId.ToLower().Contains("not found") && idImageSaveIdProperty == 0)
                     {
-                        reply.Text = $"Please add your photo to identify yourself.. ";
+                        reply.Text = $"Please upload a selfie, so we can identify you";
                         await client.Conversations.ReplyToActivityAsync(reply);
                     }
                     else if (session)
@@ -335,12 +359,12 @@ namespace AppicationBot.Ver._2
                     var token = await (connectorClient.Credentials as MicrosoftAppCredentials).GetTokenAsync();
                     foreach (var content in attachments)
                     {
-                        var uri = new Uri(content.Item2);
+                        var uri2 = new Uri(content.Item2);
                         using (var httpClient = new HttpClient())
                         {
                             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);//Bearer
                             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/octet-stream"));
-                            contentBytes.Add(await httpClient.GetByteArrayAsync(uri));
+                            contentBytes.Add(await httpClient.GetByteArrayAsync(uri2));
                         }
                     }
                 }
@@ -371,7 +395,7 @@ namespace AppicationBot.Ver._2
                         if (newMember.Id != message.Recipient.Id)
                         {
                             var reply = message.CreateReply();
-                            reply.Text = $"Welcome {newMember.Name}!...  This appointmentBot will help you to manage your appointment,  How can I help You?";
+                            reply.Text = $"Welcome {newMember.Name}, This appointmentBot will help you to manage your appointment or get in line";
                             client.Conversations.ReplyToActivityAsync(reply);
                         }
                     }
