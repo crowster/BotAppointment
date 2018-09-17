@@ -1,4 +1,0 @@
-﻿The services could be methods executed in async mode, so it makes the 
-consulting to any method or can be clients for web services
-
-And the FRSevice consume the api for Facial Recognition for access to the application bot
